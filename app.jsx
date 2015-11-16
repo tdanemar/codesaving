@@ -80,6 +80,15 @@ var Dropdown = React.createClass({
         this.setState({ focusedItem: this.props.data[index] });
     },
 
+    componentDidUpdate: function() {
+      console.log(this.refs.ul);
+      var hoverItems = this.refs.ul.getElementsByClassName("hover");
+      if (hoverItems.length > 0) {
+          //if (hoverItems[0].offsetTop > 200 - 18)
+          this.refs.ul.scrollTop = hoverItems[0].offsetTop;
+      }
+    },
+
     render: function() {
         var that = this;
         var items = this.props.data.map(function(text) {
@@ -95,7 +104,7 @@ var Dropdown = React.createClass({
             this.state.focusedItem = null;
         }
 
-        return <ul>{items}</ul>;
+        return <ul className='autoCompleteDropdown' ref={'ul'}>{items}</ul>;
     }
 });
 
